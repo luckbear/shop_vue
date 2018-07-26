@@ -3,14 +3,13 @@ const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const vuePlugin = require('vue-loader/lib/plugin')
 
-
 module.exports = {
     entry:path.join(__dirname,'./src/main.js'),
     output:{
         path:path.join(__dirname,'./dist'),
         filename:'bundle.js'
     },
-    model:'development',
+    mode:'development',
     devServer:{
         port:3000,
         open:true,
@@ -21,8 +20,9 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new htmlWebpackPlugin({
             template:'./src/index.html',
-            filename:'index.html'
-        })
+            filename:'index.html',
+        }),
+        new vuePlugin()
     ],
     module:{
         rules:[
