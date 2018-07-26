@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
+const vuePlugin = require('vue-loader/lib/plugin')
 
 
 module.exports = {
