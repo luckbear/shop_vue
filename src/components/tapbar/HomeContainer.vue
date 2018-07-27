@@ -1,33 +1,35 @@
 <template>
     <div>
         home
-        <mt-swipe :auto="4000">
-            <mt-swipe-item>1</mt-swipe-item>
-            <mt-swipe-item>2</mt-swipe-item>
-            <mt-swipe-item>3</mt-swipe-item>
+        <mt-swipe :auto="4000" v-for="item in imgList" :key="item.url">
+            <mt-swipe-item><img :src="item.img" alt=""></mt-swipe-item>
         </mt-swipe>
     </div>
 </template>
 
 <script>
 export default {
-    data(){
-        return {
+  data() {
+    return {
+      imgList: []
+    };
+  },
+  created() {
+    this.getImg();
+  },
+  methods: {
+    getImg() {
+      this.$http.get("http://47.89.21.179:8080/api/getlunbo").then(result => {
+        console.log(result);
 
+        if (result.body.status == 0) {
+          this.imgList = result.body.message;
+          console.log(this.imgList);
         }
-    },
-    created() {
-        this.getImg();
-    },
-    methods:{
-        getImg(){
-            this.$http.get('http://47.89.21.179:8080/api/getlunbo').then(result=>{
-                console.log(result);
-                
-            })
-        }
+      });
     }
-}
+  }
+};
 </script>
 
 <style lang="less" scoped>
@@ -42,6 +44,9 @@ export default {
     }
     &:nth-child(3) {
       background-color: blue;
+    }
+    img {
+      width: 100%;
     }
   }
 }
