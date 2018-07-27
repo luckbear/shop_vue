@@ -3,6 +3,10 @@
         "env","stage-0"
     ],
     "plugins": [
-        "transform-runtime"
+        "transform-runtime",
+        ["component",[{
+            "libaryName":"mint-ui",
+            "style":true
+        }]]
     ]
 }
