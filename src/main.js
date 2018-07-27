@@ -3,7 +3,10 @@ import 'mint-ui/lib/style.css'
 import './lib/mui/css/mui.css'
 import './lib/mui/css/icons-extra.css'
 
+import VueResource from 'vue-resource'
+Vue.use(VueResource)
 
+//导入路由
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
