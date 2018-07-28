@@ -3,11 +3,14 @@
         <!-- mint-ui中的固定在顶部 -->
         <mt-header fixed title="vue移动商城"></mt-header>
 
-        <router-view></router-view>
+        <transition>
+            <router-view></router-view>
+        </transition>
+
 
         <!-- mui中的Tapbar -->
 		<nav class="mui-bar mui-bar-tab">
-			<router-link class="mui-tab-item mui-active" to="/home">
+			<router-link class="mui-tab-item" to="/home">
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
 			</router-link>
@@ -32,7 +35,24 @@
 
 <style lang="less" scoped>
 .appContainer{
-    padding: 40px 0 50px;
+    padding-top: 40px;
+    overflow-x: hidden;
+    .mui-bar-tab {
+        background-color: #fff;
+    };
+    .v-enter {
+        opacity: 0;
+        transform: translateX(100%)
+    };
+    .v-leave-to {
+        position: absolute;
+        opacity: 0;
+        transform: translateX(-100%)
+    }
+    .v-enter-active,
+    .v-leave-active{
+        transition: all 0.2s ease;
+    };
 }
 </style>
 

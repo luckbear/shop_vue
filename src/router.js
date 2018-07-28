@@ -26,7 +26,8 @@ var router = new VueRouter({
             path: '/search',
             component: searchCom
         }
-    ]
+    ],
+    linkActiveClass:"mui-active",
 });
 
 export default router
