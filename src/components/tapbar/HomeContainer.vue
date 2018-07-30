@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     getImg() {
-      this.$http.get("http://47.89.21.179:8080/api/getlunbo").then(result => {
+      this.$http.get("api/getlunbo").then(result => {
         if (result.body.status === 0) {
           this.imgList = result.body.message;
         } else {

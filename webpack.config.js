@@ -11,7 +11,7 @@ module.exports = {
     },
     mode:'development',
     devServer:{
-        port:3001,
+        port:3002,
         open:true,
         contentBase:'src',
         hot:true

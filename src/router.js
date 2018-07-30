@@ -5,6 +5,7 @@ import memberCom from './components/tapbar/MemberContainer.vue'
 import shopCom from './components/tapbar/ShopCar.vue'
 import searchCom from './components/tapbar/Search.vue'
 import newsList from './components/news/newsList.vue'
+import newsInfo from './components/news/newsInfo.vue'
 
 var router = new VueRouter({
     routes: [{
@@ -30,6 +31,10 @@ var router = new VueRouter({
         {
             path:'/home/newsList',
             component:newsList
+        },
+        {
+            path:'/home/newsInfo:id',
+            component:newsInfo
         }
     ],
     linkActiveClass:"mui-active",

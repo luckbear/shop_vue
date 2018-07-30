@@ -36,6 +36,7 @@
 <style lang="less" scoped>
 .appContainer{
     padding-top: 40px;
+    padding-bottom: 50px;
     overflow-x: hidden;
     .mui-bar-tab {
         background-color: #fff;
