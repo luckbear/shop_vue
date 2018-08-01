@@ -31,6 +31,12 @@
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+    };
+  }
+};
 </script>
 
 <style lang="less" scoped>
@@ -82,7 +88,7 @@
     transition: all 0.2s ease;
   }
   * {
-    touch-action: none;
+    touch-action: pan-y;
   }
 }
 </style>

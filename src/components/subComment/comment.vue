@@ -36,7 +36,7 @@ export default {
       this.$http
         .get(
           "api/getcomments/" +
-            this.$route.params.id +
+            this.artId +
             "?pageindex=" +
             this.pageIndex
         )

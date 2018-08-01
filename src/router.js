@@ -7,6 +7,7 @@ import searchCom from './components/tapbar/Search.vue'
 import newsList from './components/news/newsList.vue'
 import newsInfo from './components/news/newsInfo.vue'
 import photoList from './components/photos/PhotoList.vue'
+import photoInfo from './components/photos/PhotoInfo.vue'
 
 var router = new VueRouter({
     routes: [{
@@ -40,7 +41,12 @@ var router = new VueRouter({
         {
             path:'/home/photoList',
             component:photoList
+        },
+        {
+            path:'/home/photoInfo:id',
+            component:photoInfo
         }
+
     ],
     linkActiveClass:"mui-active",
 });

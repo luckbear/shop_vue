@@ -15,7 +15,7 @@ module.exports = {
         open:true,
         contentBase:'src',
         hot:true,
-        host:'192.168.1.106',
+        // host:'192.168.1.106',
     },
     plugins:[
         new webpack.HotModuleReplacementPlugin(),
