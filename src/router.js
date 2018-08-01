@@ -8,6 +8,7 @@ import newsList from './components/news/newsList.vue'
 import newsInfo from './components/news/newsInfo.vue'
 import photoList from './components/photos/PhotoList.vue'
 import photoInfo from './components/photos/PhotoInfo.vue'
+import goodsList from './components/Goods/GoodsList.vue'
 
 var router = new VueRouter({
     routes: [{
@@ -45,6 +46,10 @@ var router = new VueRouter({
         {
             path:'/home/photoInfo:id',
             component:photoInfo
+        },
+        {
+            path:'/home/goodsList',
+            component:goodsList
         }
 
     ],

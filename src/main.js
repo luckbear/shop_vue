@@ -34,7 +34,12 @@ import moment from 'Moment'
 //定义格式化时间的全局过滤器
 Vue.filter('dateFormat', (dateStr, pattern = 'YYYY-MM-DD HH:mm:ss') => {
     return moment(dateStr).format(pattern);
-})
+});
+
+//导入预览图模块
+import Vuepreview from 'vue-preview'
+
+Vue.use(Vuepreview)
 
 
 

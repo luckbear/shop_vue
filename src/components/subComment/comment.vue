@@ -1,6 +1,6 @@
 <template>
     <div class="comment">
-        <h3>发表评论</h3>
+        <h3>发表评论:</h3>
         <hr>
         <textarea placeholder="请输入要BB的内容，最多140个字" maxlength="140" v-model="msg"></textarea>
         <mt-button type="primary" size="large" @click="addComment">发表评论</mt-button>
@@ -44,7 +44,7 @@ export default {
           if (result.body.status === 0) {
             this.cmtList = this.cmtList.concat(result.body.message);
           } else {
-            alert("获取评论失败");
+            Toast ("获取评论失败");
           }
         });
     },
@@ -55,7 +55,7 @@ export default {
     addComment() {
       if (this.msg.trim().length == 0) {
         return Toast("评论内容不能为空");
-      }
+      };
       this.$http
         .post("api/postcomment/" + this.$route.params.id, {
           content: this.msg.trim()
