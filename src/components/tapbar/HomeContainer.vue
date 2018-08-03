@@ -1,11 +1,8 @@
 <template>
     <div>
         <!-- 轮播图 -->
-        <mt-swipe :auto="4000">
-            <mt-swipe-item  v-for="item in imgList" :key="item.img">
-                <img :src="item.img" alt="">
-            </mt-swipe-item>
-        </mt-swipe>
+        <slider :imgList="imgList">
+        </slider>
         <!-- 六宫格菜单 -->
         <ul class="mui-table-view mui-grid-view mui-grid-9">
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="/home/newsList">
@@ -38,6 +35,8 @@
 
 <script>
 import { Toast } from "mint-ui";
+//导入轮播图组件
+import slider from '../subComment/slider.vue'
 export default {
   data() {
     return {
@@ -62,12 +61,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.mint-swipe {
-  height: 200px;
-  img {
-    width: 100%;
-  }
-}
 .mui-table-view {
   background-color: white;
   .mui-table-view-cell {

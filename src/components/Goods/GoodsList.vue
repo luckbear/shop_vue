@@ -1,6 +1,6 @@
 <template>
 <div class="goodsList">
-    <div class="goodItem" v-for="item in goodsList" :key="item.id">
+    <div class="goodItem" v-for="item in goodsList" :key="item.id" @click="toGoodsInfo(item.id)">
         <img :src="item.img_url">
         <h1>{{item.title}}</h1>
         <div class="info">
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import {Toast} from 'mint-ui';
+import { Toast } from "mint-ui";
 export default {
   data() {
     return {
@@ -51,23 +51,29 @@ export default {
   },
   methods: {
     getGoodsList() {
-      this.$http.get("api/getgoods?pageindex=" + this.pageIndex).then(result => {
-        if (result.body.status === 0) {
-            if(result.body.message.length==0) return Toast('没有更多数据')
-    
-          result.body.message.forEach((element, index) => {
-            element.img_url = this.imgUrl[index] || this.imgUrl[0];
-          });
-          this.goodsList = this.goodsList.concat(result.body.message);
-        } else {
-          alert("获取商品列表失败");
-        }
-      });
+      this.$http
+        .get("api/getgoods?pageindex=" + this.pageIndex)
+        .then(result => {
+          if (result.body.status === 0) {
+            if (result.body.message.length == 0) return Toast("没有更多数据");
+
+            result.body.message.forEach((element, index) => {
+              element.img_url = this.imgUrl[index] || this.imgUrl[0];
+            });
+            this.goodsList = this.goodsList.concat(result.body.message);
+          } else {
+            alert("获取商品列表失败");
+          }
+        });
     },
     //获取更多
     getMore() {
       this.pageIndex += 1;
       this.getGoodsList();
+    },
+    //跳转到商品详情
+    toGoodsInfo(id) {
+      this.$router.push({ name: "goodsInfo", params: { id } });
     }
   }
 };
