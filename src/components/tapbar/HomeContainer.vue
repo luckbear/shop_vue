@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- 轮播图 -->
-        <slider :imgList="imgList">
+        <slider :imgList="imgList"> -->
         </slider>
         <!-- 六宫格菜单 -->
         <ul class="mui-table-view mui-grid-view mui-grid-9">
@@ -56,6 +56,9 @@ export default {
         }
       });
     }
+  },
+  components:{
+      slider
   }
 };
 </script>

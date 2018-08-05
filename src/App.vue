@@ -1,7 +1,12 @@
 <template>
     <div class="appContainer">
         <!-- mint-ui中的固定在顶部 -->
-        <mt-header fixed title="vue移动商城"></mt-header>
+        <div class="head">
+            <mt-header fixed title="vue移动商城">
+            </mt-header>
+            <span class="mui-icon mui-icon-back" @click="back"></span>
+        </div>
+
 
         <transition>
             <router-view></router-view>
@@ -33,8 +38,12 @@
 <script>
 export default {
   data() {
-    return {
-    };
+    return {};
+  },
+  methods:{
+      back(){
+          this.$router.go(-1)
+      }
   }
 };
 </script>
@@ -44,6 +53,16 @@ export default {
   padding-top: 40px;
   padding-bottom: 50px;
   overflow-x: hidden;
+  .head {
+      position: relative;
+      span{
+          color: #fff;
+          position: absolute;
+          z-index: 11;
+          top: -30px;
+          left: 15px;
+      }
+  }
   .mui-bar-tab {
     background-color: #fff;
     .mui-tab-item1 {
