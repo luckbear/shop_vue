@@ -36,7 +36,7 @@
 <script>
 import { Toast } from "mint-ui";
 //导入轮播图组件
-import slider from '../subComment/slider.vue'
+import slider from "../subComment/slider.vue";
 export default {
   data() {
     return {
@@ -57,8 +57,8 @@ export default {
       });
     }
   },
-  components:{
-      slider
+  components: {
+    slider
   }
 };
 </script>
@@ -67,11 +67,11 @@ export default {
 .mui-table-view {
   background-color: white;
   .mui-table-view-cell {
-      border:none;
-  };
+    border: none;
+  }
   img {
-      width: 60px;
-      height: 60px;
+    width: 60px;
+    height: 60px;
   }
 }
 </style>

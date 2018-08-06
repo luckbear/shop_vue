@@ -1,5 +1,9 @@
 <template>
 <div class="goodsInfo">
+    <!-- 动画小球 -->
+    <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+        <div class="ball" v-show="fullBall" ref="ball"></div>
+    </transition>
     <!-- 轮播图卡片 -->
     <div class="mui-card">
       <div class="mui-card-content">
@@ -19,16 +23,12 @@
                     <span class="nowPri">销售价：￥{{goodsInfo.sell_price}}</span>
                 </p>
                 <p class="num">
-                    购买数量: <numBox :maxNum="goodsInfo.stock_quantity"> </numBox>
+                    购买数量:&nbsp;&nbsp;<numBox :maxNum="goodsInfo.stock_quantity" @getSelectNum="getSelectNum"> </numBox>
                 </p>
                 <p class="car">
                     <mt-button type="primary">立即购买</mt-button>
-                    <mt-button type="danger" @click="moveBall">加入购物车</mt-button>
-                </p>
-                <transition @before-enter="beforeEnter" @enter="enter" @enter-after="enterAfter">
-                    <div class="ball" v-show="fullBall"></div>
-                </transition>
-                
+                    <mt-button type="danger" @click="addToCar">加入购物车</mt-button>
+                </p>                
             </div>
         </div>
     </div>
@@ -61,12 +61,6 @@ export default {
       goodsInfo: {},
       imgList: [],
       imgUrl: [
-        "https://images.pexels.com/photos/54455/cook-food-kitchen-eat-54455.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350",
-        "https://images.pexels.com/photos/459469/pexels-photo-459469.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350",
-        "https://images.pexels.com/photos/5938/food-salad-healthy-lunch.jpg?auto=compress&cs=tinysrgb&dpr=2&h=350",
-        "https://images.pexels.com/photos/113734/pexels-photo-113734.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350",
-        "https://images.pexels.com/photos/261403/pexels-photo-261403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350",
-        "https://images.pexels.com/photos/210186/pexels-photo-210186.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350",
         "https://images.pexels.com/photos/145939/pexels-photo-145939.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350",
         "https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350",
         "https://images.pexels.com/photos/9291/nature-bird-flying-red.jpg?auto=compress&cs=tinysrgb&dpr=2&h=350",
@@ -78,7 +72,9 @@ export default {
         "https://images.pexels.com/photos/1267257/pexels-photo-1267257.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350",
         "https://images.pexels.com/photos/1267323/pexels-photo-1267323.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350"
       ],
-      fullBall: false
+      fullBall: false,
+      seclectNum: 1, //numBox子组件选中的商品数量，默认为1
+      selected:true 
     };
   },
   created() {
@@ -104,10 +100,46 @@ export default {
       });
     },
     //加入购物车
-    moveBall() {
+    addToCar() {
       this.fullBall = !this.fullBall;
+      var goodsOfCar = {
+        id: this.id,
+        count:this.seclectNum,
+        price:this.goodsInfo.sell_price,
+        selected:this.selected
+      };
+      this.$store.commit('addToStore',goodsOfCar)
+    },
+
+    //半程动画开始
+    beforeEnter(el) {
+      el.style.transform = "translate(0,0)";
+    },
+    //动画进行时
+    enter(el, done) {
+      el.offsetHeight;
+      const ballPosition = this.$refs.ball.getBoundingClientRect();
+      const carPosition = document
+        .getElementById("carBadge")
+        .getBoundingClientRect();
+
+      const xDis = carPosition.left - ballPosition.left;
+      const yDis = carPosition.top - ballPosition.top;
+
+      el.style.transform = `translate(${xDis}px,${yDis}px)`;
+      el.style.transition = "all 1s cubic-bezier(.4,-0.3,1,0.68)";
+      done();
+    },
+    //动画结束
+    afterEnter(el) {
+      this.fullBall = !this.fullBall;
+    },
+    //获取子组件传过来的商品数量
+    getSelectNum(num) {
+      this.seclectNum = num;
     }
   },
+
   components: {
     slider,
     numBox
@@ -117,8 +149,10 @@ export default {
 
 <style lang="less" scoped>
 .goodsInfo {
-  .car {
-    position: relative;
+  position: relative;
+  .num {
+    display: flex;
+    align-items: center;
   }
   .ball {
     width: 15px;
@@ -126,8 +160,9 @@ export default {
     border-radius: 50%;
     background-color: red;
     position: absolute;
-    top: 76px;
-    left: 65px;
+    top: 360px;
+    left: 77px;
+    z-index: 11;
   }
 }
 </style>

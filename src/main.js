@@ -38,17 +38,51 @@ Vue.filter('dateFormat', (dateStr, pattern = 'YYYY-MM-DD HH:mm:ss') => {
 
 //导入预览图模块
 import Vuepreview from 'vue-preview'
-
 Vue.use(Vuepreview)
+
+//导入并注册vuex
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
+//创建store实例
+var store = new Vuex.Store({
+    state: {
+        car: []
+    },
+    mutations: {
+        //把numbox传来的商品对象添加到store中的car
+        addToStore(state, goods) {
+            var flag = false;
+            state.car.some(item => {
+                if (item.id == goods.id) {
+                    //如果购物车中已经存在该商品，则只追加数量
+                    item.count += goods.count
+                    flag = true
+                    return true
+                }
+            });
+            //如果购物车中不存在该商品，则push进car
+            if (!flag) {
+                state.car.push(goods)
+            };
+            //把购物车商品存到localstorge
+            localStorage.setItem('car',JSON.stringify(state.car))  
+        },
+    },
+    getters: {}
+})
+
+
+
 
 
 
 var vm = new Vue({
     el: '#container',
     data: {
-    
+
     },
     render: c => c(app),
     router,
-
+    store
 })

@@ -78,8 +78,6 @@ export default {
                   h:400
               })
           });
-          console.log(this.slide1);
-          
         } else {
           alert("获取图片详情失败");
         }
