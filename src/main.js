@@ -44,10 +44,13 @@ Vue.use(Vuepreview)
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
+//先从本地存储中取出car
+var car = JSON.parse(localStorage.getItem('car') || '[]')
+
 //创建store实例
 var store = new Vuex.Store({
     state: {
-        car: []
+        car: car
     },
     mutations: {
         //把numbox传来的商品对象添加到store中的car
@@ -66,10 +69,57 @@ var store = new Vuex.Store({
                 state.car.push(goods)
             };
             //把购物车商品存到localstorge
-            localStorage.setItem('car',JSON.stringify(state.car))  
+            localStorage.setItem('car', JSON.stringify(state.car));
         },
+        updateShopCar(state, goods) {
+            state.car.some(item => {
+                if (item.id === goods.id) {
+                    item.count = goods.count;
+                    return true
+                }
+            });
+            localStorage.setItem('car', JSON.stringify(state.car))
+        },
+        updateSelected(state, goods) {
+            state.car.some(item => {
+                if (item.id === goods.id) {
+                    item.selected = goods.selected;
+                    return true
+                }
+            });
+            localStorage.setItem('car', JSON.stringify(state.car))
+        },
+        removeGoods(state, goodsId) {
+            state.car.some((item,i) => {
+                if (item.id === goodsId) {
+                    state.car.splice(i,1)
+                    return true
+                }
+            });
+            localStorage.setItem('car', JSON.stringify(state.car))
+        }
     },
-    getters: {}
+    getters: {
+        //获取购物车中所有商品总件数
+        getAllCount(state) {
+            var count = 0;
+            state.car.forEach(element => {
+                count += element.count;
+            });
+            return count
+        },
+        getSelCount(state) {
+            var count = 0;
+            var allPrice = 0;
+            state.car.forEach(item => {
+                if (item.selected) {
+                    count += item.count;
+                    allPrice +=item.count*item.price
+                }
+            });
+            return {'count':count,'price':allPrice}
+        }
+    }
 })
 
 
@@ -79,9 +129,7 @@ var store = new Vuex.Store({
 
 var vm = new Vue({
     el: '#container',
-    data: {
-
-    },
+    data: {},
     render: c => c(app),
     router,
     store

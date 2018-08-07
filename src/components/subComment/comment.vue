@@ -64,7 +64,7 @@ export default {
             if (result.body.status===0) {
                 //把新评论组建为对象
                 var newCmt = {
-                    user_name:'匿名用户',
+                    user_name:'老司机',
                     add_time:Date.now(),
                     content:this.msg.trim()
                 };

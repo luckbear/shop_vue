@@ -3,8 +3,10 @@
         <!-- mint-ui中的固定在顶部 -->
         <div class="head">
             <mt-header fixed title="vue移动商城">
+              <span to="/" slot="left" @click="back" v-show="hidden">
+                <mt-button icon="back">返回</mt-button>
+              </span>
             </mt-header>
-            <span class="mui-icon mui-icon-back" @click="back"></span>
         </div>
 
 
@@ -24,7 +26,8 @@
 				<span class="mui-tab-label">会员</span>
 			</router-link>
 			<router-link class="mui-tab-item1" to="/shopcar">
-				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span id="carBadge" class="mui-badge">9</span></span>
+				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span id="carBadge"
+         class="mui-badge">{{$store.getters.getAllCount}}</span></span>
 				<span class="mui-tab-label">购物车</span>
 			</router-link>
 			<router-link class="mui-tab-item1" to="/search">
@@ -38,12 +41,23 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      hidden: false
+    };
   },
-  methods:{
-      back(){
-          this.$router.go(-1)
+  methods: {
+    back() {
+      this.$router.go(-1);
+    }
+  },
+  watch: {
+    "$route.path": function(newVal) {
+      if (newVal == "/home") {
+        this.hidden = false;
+      }else{
+        this.hidden=true;
       }
+    }
   }
 };
 </script>
@@ -53,16 +67,6 @@ export default {
   padding-top: 40px;
   padding-bottom: 50px;
   overflow-x: hidden;
-  .head {
-      position: relative;
-      span{
-          color: #fff;
-          position: absolute;
-          z-index: 11;
-          top: -30px;
-          left: 15px;
-      }
-  }
   .mui-bar-tab {
     background-color: #fff;
     .mui-tab-item1 {

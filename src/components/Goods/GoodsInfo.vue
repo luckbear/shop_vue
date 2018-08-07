@@ -104,6 +104,7 @@ export default {
       this.fullBall = !this.fullBall;
       var goodsOfCar = {
         id: this.id,
+        title:this.goodsInfo.title,
         count:this.seclectNum,
         price:this.goodsInfo.sell_price,
         selected:this.selected
@@ -127,7 +128,7 @@ export default {
       const yDis = carPosition.top - ballPosition.top;
 
       el.style.transform = `translate(${xDis}px,${yDis}px)`;
-      el.style.transition = "all 1s cubic-bezier(.4,-0.3,1,0.68)";
+      el.style.transition = "all 0.5s cubic-bezier(.4,-0.3,1,0.68)";
       done();
     },
     //动画结束
